@@ -79,6 +79,10 @@ else
     ARGS=(--workers "$UVICORN_WORKERS")
 fi
 
+if [ -n "$PUBLIC_BASE_PATH" ]; then
+  ARGS+=(--root-path "$PUBLIC_BASE_PATH")
+fi
+
 # Run uvicorn
 WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" exec "$PYTHON_CMD" -m uvicorn open_webui.main:app \
     --host "$HOST" \
