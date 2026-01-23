@@ -2,7 +2,8 @@ import adapter from '@sveltejs/adapter-static';
 import * as child_process from 'node:child_process';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import fs from 'node:fs';
-import { PUBLIC_BASE_PATH } from '$env/static/public';
+
+const PUBLIC_BASE_PATH = process.env.PUBLIC_BASE_PATH || '';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
