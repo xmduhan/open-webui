@@ -89,3 +89,4 @@ WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" exec "$PYTHON_CMD" -m uvicorn open_webui.ma
     --port "$PORT" \
     --forwarded-allow-ips '*' \
     "${ARGS[@]}"
+
