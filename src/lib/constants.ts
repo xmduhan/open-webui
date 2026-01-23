@@ -5,9 +5,7 @@ export const APP_NAME = 'Open WebUI';
 export const WEBUI_BASE_PATH = base;
 export const WEBUI_BASE_URL =
 	browser && dev ? `http://${location.hostname}:8080` : WEBUI_BASE_PATH;
-
 export const WEBUI_API_BASE_URL = `${WEBUI_BASE_URL}/api/v1`;
-
 export const OLLAMA_API_BASE_URL = `${WEBUI_BASE_URL}/ollama`;
 export const OPENAI_API_BASE_URL = `${WEBUI_BASE_URL}/openai`;
 export const AUDIO_API_BASE_URL = `${WEBUI_API_BASE_URL}/audio`;
