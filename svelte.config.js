@@ -2,6 +2,7 @@ import adapter from '@sveltejs/adapter-static';
 import * as child_process from 'node:child_process';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import fs from 'node:fs';
+import { PUBLIC_BASE_PATH } from '$env/static/public';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -10,7 +11,7 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		paths: {
-    			base: '/dc/lawbase/open-webui'
+    			base: PUBLIC_BASE_PATH || ''
 		},
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.

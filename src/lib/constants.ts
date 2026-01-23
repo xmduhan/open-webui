@@ -2,18 +2,7 @@ import { browser, dev } from '$app/environment';
 import { base } from '$app/paths';
 
 export const APP_NAME = 'Open WebUI';
-
-/**
- * base:
- *  - '' in dev
- *  - '/dc/lawbase/open-webui' in production (via kit.paths.base)
- */
 export const WEBUI_BASE_PATH = base;
-
-/**
- * Development: keep existing localhost behavior
- * Production: rely purely on relative URLs + base path
- */
 export const WEBUI_BASE_URL =
 	browser && dev ? `http://${location.hostname}:8080` : WEBUI_BASE_PATH;
 
