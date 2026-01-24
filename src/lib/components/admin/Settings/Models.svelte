@@ -40,6 +40,7 @@
 	import Eye from '$lib/components/icons/Eye.svelte';
 	import { WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	let shiftKey = false;
 
@@ -192,7 +193,7 @@
 	};
 
 	const copyLinkHandler = async (model) => {
-		const baseUrl = window.location.origin;
+		const baseUrl = `${window.location.origin}${base}`;
 		const res = await copyToClipboard(`${baseUrl}/?model=${encodeURIComponent(model.id)}`);
 
 		if (res) {

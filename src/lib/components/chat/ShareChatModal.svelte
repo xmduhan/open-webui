@@ -21,7 +21,7 @@
 		const _chat = chat;
 
 		const sharedChat = await shareChatById(localStorage.token, chatId);
-		shareUrl = `${window.location.origin}/s/${sharedChat.id}`;
+		shareUrl = `${window.location.origin}${base}/s/${sharedChat.id}`;
 		console.log(shareUrl);
 		chat = await getChatById(localStorage.token, chatId);
 

@@ -16,6 +16,7 @@
 	import { toast } from 'svelte-sonner';
 	import Tag from '$lib/components/icons/Tag.svelte';
 	import Label from '$lib/components/icons/Label.svelte';
+	import { base } from '$app/paths';
 
 	const i18n = getContext('i18n');
 
@@ -30,7 +31,7 @@
 	export let onClick: () => void = () => {};
 
 	const copyLinkHandler = async (model) => {
-		const baseUrl = window.location.origin;
+		const baseUrl = `${window.location.origin}${base}`;
 		const res = await copyToClipboard(`${baseUrl}/?model=${encodeURIComponent(model.id)}`);
 
 		if (res) {

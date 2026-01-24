@@ -507,7 +507,7 @@
 																			downloadHandler(type);
 																		}}
 																		onCopyLink={async () => {
-																			const baseUrl = window.location.origin;
+																			const baseUrl = `${window.location.origin}${base}`;
 																			const res = await copyToClipboard(
 																				`${baseUrl}/notes/${note.id}`
 																			);
@@ -569,7 +569,7 @@
 																			downloadHandler(type);
 																		}}
 																		onCopyLink={async () => {
-																			const baseUrl = window.location.origin;
+																			const baseUrl = `${window.location.origin}${base}`;
 																			const res = await copyToClipboard(
 																				`${baseUrl}/notes/${note.id}`
 																			);

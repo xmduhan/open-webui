@@ -15,6 +15,7 @@
 	import calendar from 'dayjs/plugin/calendar';
 	import duration from 'dayjs/plugin/duration';
 	import relativeTime from 'dayjs/plugin/relativeTime';
+	import { base } from '$app/paths';
 
 	dayjs.extend(calendar);
 	dayjs.extend(duration);
@@ -1034,7 +1035,7 @@ Provide the enhanced notes in markdown format. Use markdown syntax for headings,
 										downloadHandler(type);
 									}}
 									onCopyLink={async () => {
-										const baseUrl = window.location.origin;
+										const baseUrl = `${window.location.origin}${base}`;
 										const res = await copyToClipboard(`${baseUrl}/notes/${note.id}`);
 
 										if (res) {
