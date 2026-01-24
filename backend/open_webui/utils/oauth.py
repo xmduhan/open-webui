@@ -1386,9 +1386,14 @@ class OAuthManager:
         if provider not in OAUTH_PROVIDERS:
             raise HTTPException(404)
         # If the provider has a custom redirect URL, use that, otherwise automatically generate one
-        redirect_uri = OAUTH_PROVIDERS[provider].get("redirect_uri") or request.url_for(
-            "oauth_login_callback", provider=provider
-        )
+        custom_redirect = OAUTH_PROVIDERS[provider].get("redirect_uri")
+        if custom_redirect:
+            redirect_uri = custom_redirect
+        else:
+            root_path = request.scope.get("root_path", "")
+            base = str(request.base_url).rstrip("/")
+            redirect_uri = f"{base}{root_path}/oauth/{provider}/callback"
+
         client = self.get_client(provider)
         if client is None:
             raise HTTPException(404)
