@@ -80,7 +80,9 @@ else
 fi
 
 if [ -n "$PUBLIC_BASE_PATH" ]; then
-  ARGS+=(--root-path "$PUBLIC_BASE_PATH")
+  ROOT_PATH="$PUBLIC_BASE_PATH"
+  [[ "$ROOT_PATH" != /* ]] && ROOT_PATH="/$ROOT_PATH"
+  ARGS+=(--root-path "$ROOT_PATH")
 fi
 
 # Run uvicorn
