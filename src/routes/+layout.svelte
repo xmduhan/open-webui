@@ -601,7 +601,7 @@
 			user.set(null);
 			localStorage.removeItem('token');
 
-			location.href = res?.redirect_url ?? '/auth';
+			location.href = res?.redirect_url ?? `${base}/auth`;
 		}
 	};
 
