@@ -2,6 +2,7 @@
 	import { toast } from 'svelte-sonner';
 	import fileSaver from 'file-saver';
 	const { saveAs } = fileSaver;
+	import { base } from '$app/paths';
 
 	import { onMount, getContext, tick } from 'svelte';
 	const i18n = getContext('i18n');
@@ -500,7 +501,7 @@
 
 										<ToolMenu
 											editHandler={() => {
-												goto(`/workspace/tools/edit?id=${encodeURIComponent(tool.id)}`);
+												goto(`${base}/workspace/tools/edit?id=${encodeURIComponent(tool.id)}`);
 											}}
 											shareHandler={() => {
 												shareHandler(tool);

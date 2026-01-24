@@ -7,6 +7,7 @@
 	import SearchInput from './Sidebar/SearchInput.svelte';
 	import { getChatById, getChatList, getChatListBySearchText } from '$lib/apis/chats';
 	import Spinner from '../common/Spinner.svelte';
+	import { base } from '$app/paths';
 
 	import dayjs from '$lib/dayjs';
 	import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -233,7 +234,7 @@
 						{
 							label: $i18n.t('Create a new note'),
 							onClick: async () => {
-								await goto(`/notes?content=${query}`);
+								await goto(`${base}/notes?content=${query}`);
 								show = false;
 								onClose();
 							},
@@ -377,7 +378,7 @@
 								selectedIdx = idx + actions.length;
 							}}
 							on:click={async () => {
-								await goto(`/c/${chat.id}`);
+								await goto(`${base}/c/${chat.id}`);
 								show = false;
 								onClose();
 							}}

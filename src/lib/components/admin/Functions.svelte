@@ -41,6 +41,8 @@
 	import TagSelector from '../workspace/common/TagSelector.svelte';
 	import { capitalizeFirstLetter } from '$lib/utils';
 	import Spinner from '../common/Spinner.svelte';
+	import { base } from '$app/paths';
+
 
 	const i18n = getContext('i18n');
 
@@ -519,7 +521,7 @@
 									<FunctionMenu
 										{func}
 										editHandler={() => {
-											goto(`/admin/functions/edit?id=${encodeURIComponent(func.id)}`);
+											goto(`${base}/admin/functions/edit?id=${encodeURIComponent(func.id)}`);
 										}}
 										shareHandler={() => {
 											shareHandler(func);

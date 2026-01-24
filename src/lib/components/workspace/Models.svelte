@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { marked } from 'marked';
+	import { base } from '$app/paths';
 
 	import { toast } from 'svelte-sonner';
 	import Sortable from 'sortablejs';
@@ -464,7 +465,7 @@
 							id="model-item-{model.id}"
 							on:click={() => {
 								if (model.write_access) {
-									goto(`/workspace/models/edit?id=${encodeURIComponent(model.id)}`);
+									goto(`${base}/workspace/models/edit?id=${encodeURIComponent(model.id)}`);
 								}
 							}}
 						>

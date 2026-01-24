@@ -10,6 +10,7 @@
 
 	import AccessControl from '../common/AccessControl.svelte';
 	import Spinner from '$lib/components/common/Spinner.svelte';
+	import { base } from '$app/paths';
 
 	let loading = false;
 
@@ -39,7 +40,7 @@
 
 		if (res) {
 			toast.success($i18n.t('Knowledge created successfully.'));
-			goto(`/workspace/knowledge/${res.id}`);
+			goto(`${base}/workspace/knowledge/${res.id}`);
 		}
 
 		loading = false;

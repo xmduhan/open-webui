@@ -13,6 +13,7 @@
 	import { get, type Unsubscriber, type Writable } from 'svelte/store';
 	import type { i18n as i18nType } from 'i18next';
 	import { WEBUI_BASE_URL } from '$lib/constants';
+	import { base } from '$app/paths';
 
 	import {
 		chatId,
@@ -2487,7 +2488,7 @@
 									chatId.set(savedChat.id);
 									chats.set(await getChatList(localStorage.token, $currentChatPage));
 
-									await goto(`/c/${savedChat.id}`);
+									await goto(`${base}/c/${savedChat.id}`);
 									toast.success($i18n.t('Conversation saved successfully'));
 								}
 							} catch (error) {

@@ -7,6 +7,7 @@
 	import { mobile, showArchivedChats, showSidebar, user } from '$lib/stores';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 
 	import { createNoteHandler } from '$lib/components/notes/utils';
 
@@ -29,7 +30,7 @@
 			const res = await createNoteHandler(title, content);
 
 			if (res) {
-				goto(`/notes/${res.id}`);
+				goto(`${base}/notes/${res.id}`);
 			}
 			return;
 		}

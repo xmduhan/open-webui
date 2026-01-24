@@ -16,6 +16,7 @@
 	import { createPicker, getAuthToken } from '$lib/utils/google-drive-picker';
 	import { pickAndDownloadFile } from '$lib/utils/onedrive-file-picker';
 	import { KokoroWorker } from '$lib/workers/KokoroWorker';
+	import { base } from '$app/paths';
 
 	const dispatch = createEventDispatcher();
 
@@ -769,7 +770,7 @@
 		if (res) {
 			// Clear the input content saved in session storage.
 			sessionStorage.removeItem('chat-input');
-			goto(`/notes/${res.id}`);
+			goto(`${base}/notes/${res.id}`);
 		}
 	};
 

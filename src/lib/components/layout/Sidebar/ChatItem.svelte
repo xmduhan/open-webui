@@ -42,6 +42,7 @@
 	import Document from '$lib/components/icons/Document.svelte';
 	import Sparkles from '$lib/components/icons/Sparkles.svelte';
 	import { generateTitle } from '$lib/apis';
+	import { base } from '$app/paths';
 
 	export let className = '';
 
@@ -107,7 +108,7 @@
 		});
 
 		if (res) {
-			goto(`/c/${res.id}`);
+			goto(`${base}/c/${res.id}`);
 
 			currentChatPage.set(1);
 			await chats.set(await getChatList(localStorage.token, $currentChatPage));

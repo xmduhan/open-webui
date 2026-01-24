@@ -16,6 +16,7 @@
 
 	import { goto } from '$app/navigation';
 	import { capitalizeFirstLetter } from '$lib/utils';
+	import { base } from '$app/paths';
 
 	import DeleteConfirmDialog from '../common/ConfirmDialog.svelte';
 	import ItemMenu from './Knowledge/ItemMenu.svelte';
@@ -239,7 +240,7 @@
 										)
 									);
 								} else {
-									goto(`/workspace/knowledge/${item.id}`);
+									goto(`${base}/workspace/knowledge/${item.id}`);
 								}
 							}}
 						>

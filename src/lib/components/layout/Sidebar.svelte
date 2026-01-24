@@ -29,6 +29,7 @@
 		sidebarWidth
 	} from '$lib/stores';
 	import { onMount, getContext, tick, onDestroy } from 'svelte';
+	import { base } from '$app/paths';
 
 	const i18n = getContext('i18n');
 
@@ -592,7 +593,7 @@
 			await initChannels();
 			showCreateChannel = false;
 			showChannels = true;
-			goto(`/channels/${res.id}`);
+			goto(`${base}/channels/${res.id}`);
 		}
 	}}
 />

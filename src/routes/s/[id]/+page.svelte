@@ -2,6 +2,7 @@
 	import { onMount, tick, getContext } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 
 	import dayjs from 'dayjs';
 
@@ -136,7 +137,7 @@
 		});
 
 		if (res) {
-			goto(`/c/${res.id}`);
+			goto(`${base}/c/${res.id}`);
 		}
 	};
 </script>

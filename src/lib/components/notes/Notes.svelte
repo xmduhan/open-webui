@@ -8,6 +8,7 @@
 	import dayjs from '$lib/dayjs';
 	import duration from 'dayjs/plugin/duration';
 	import relativeTime from 'dayjs/plugin/relativeTime';
+	import { base } from '$app/paths';
 
 	dayjs.extend(duration);
 	dayjs.extend(relativeTime);
@@ -336,7 +337,7 @@
 							const res = await createNoteHandler(dayjs().format('YYYY-MM-DD'));
 
 							if (res) {
-								goto(`/notes/${res.id}`);
+								goto(`${base}/notes/${res.id}`);
 							}
 						}}
 					>
