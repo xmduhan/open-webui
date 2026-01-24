@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { toast } from 'svelte-sonner';
 	import { getContext } from 'svelte';
+	import { base } from '$app/paths';
 
 	import dayjs from 'dayjs';
 	import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -371,7 +372,7 @@
 														'border-b'} dark:bg-gray-900 border-gray-50 dark:border-gray-850/30 text-xs"
 												>
 													<td class="px-3 py-1 w-2/3">
-														<a href="/c/{chat.id}" target="_blank">
+													        <a href={`${base}/c/${chat.id}`} target="_blank">
 															<div class=" hover:underline line-clamp-1">
 																{chat.title}
 															</div>
