@@ -1466,8 +1466,8 @@ if audit_level != AuditLevel.NONE:
 ##################################
 
 
-@app.get("/api/models")
-@app.get("/api/v1/models")  # Experimental: Compatibility with OpenAI API
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/models")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/v1/models")  # Experimental: Compatibility with OpenAI API
 async def get_models(
     request: Request, refresh: bool = False, user=Depends(get_verified_user)
 ):
@@ -1518,7 +1518,7 @@ async def get_models(
     return {"data": models}
 
 
-@app.get("/api/models/base")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/models/base")
 async def get_base_models(request: Request, user=Depends(get_admin_user)):
     models = await get_all_base_models(request, user=user)
     return {"data": models}
@@ -1849,12 +1849,12 @@ async def stop_task_endpoint(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
 
-@app.get("/api/tasks")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/tasks")
 async def list_tasks_endpoint(request: Request, user=Depends(get_verified_user)):
     return {"tasks": await list_tasks(request.app.state.redis)}
 
 
-@app.get("/api/tasks/chat/{chat_id}")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/tasks/chat/{{chat_id}}")
 async def list_tasks_by_chat_id_endpoint(
     request: Request, chat_id: str, user=Depends(get_verified_user)
 ):
@@ -1875,7 +1875,7 @@ async def list_tasks_by_chat_id_endpoint(
 ##################################
 
 
-@app.get("/api/config")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/config")
 async def get_app_config(request: Request):
     user = None
     token = None
@@ -2051,7 +2051,7 @@ class UrlForm(BaseModel):
     url: str
 
 
-@app.get("/api/webhook")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/webhook")
 async def get_webhook_url(user=Depends(get_admin_user)):
     return {
         "url": app.state.config.WEBHOOK_URL,
@@ -2065,7 +2065,7 @@ async def update_webhook_url(form_data: UrlForm, user=Depends(get_admin_user)):
     return {"url": app.state.config.WEBHOOK_URL}
 
 
-@app.get("/api/version")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/version")
 async def get_app_version():
     return {
         "version": VERSION,
@@ -2073,7 +2073,7 @@ async def get_app_version():
     }
 
 
-@app.get("/api/version/updates")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/version/updates")
 async def get_app_latest_release_version(user=Depends(get_verified_user)):
     if not ENABLE_VERSION_UPDATE_CHECK:
         log.debug(
@@ -2097,12 +2097,12 @@ async def get_app_latest_release_version(user=Depends(get_verified_user)):
         return {"current": VERSION, "latest": VERSION}
 
 
-@app.get("/api/changelog")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/changelog")
 async def get_app_changelog():
     return {key: CHANGELOG[key] for idx, key in enumerate(CHANGELOG) if idx < 5}
 
 
-@app.get("/api/usage")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/api/usage")
 async def get_current_usage(user=Depends(get_verified_user)):
     """
     Get current usage statistics for Open WebUI.
@@ -2242,7 +2242,7 @@ async def register_client(request, client_id: str) -> bool:
     return True
 
 
-@app.get("/oauth/clients/{client_id}/authorize")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/oauth/clients/{{client_id}}/authorize")
 async def oauth_client_authorize(
     client_id: str,
     request: Request,
@@ -2287,7 +2287,7 @@ async def oauth_client_authorize(
     return await oauth_client_manager.handle_authorize(request, client_id=client_id)
 
 
-@app.get("/oauth/clients/{client_id}/callback")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/oauth/clients/{{client_id}}/callback")
 async def oauth_client_callback(
     client_id: str,
     request: Request,
@@ -2302,7 +2302,7 @@ async def oauth_client_callback(
     )
 
 
-@app.get("/oauth/{provider}/login")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/oauth/{{provider}}/login")
 async def oauth_login(provider: str, request: Request):
     return await oauth_manager.handle_login(request, provider)
 
@@ -2313,8 +2313,8 @@ async def oauth_login(provider: str, request: Request):
 #    - This is considered insecure in general, as OAuth providers do not always verify email addresses
 # 3. If there is no user, and ENABLE_OAUTH_SIGNUP is true, create a user
 #    - Email addresses are considered unique, so we fail registration if the email address is already taken
-@app.get("/oauth/{provider}/login/callback")
-@app.get("/oauth/{provider}/callback")  # Legacy endpoint
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/oauth/{{provider}}/login/callback")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/oauth/{{provider}}/callback")  # Legacy endpoint
 async def oauth_login_callback(
     provider: str,
     request: Request,
@@ -2324,7 +2324,7 @@ async def oauth_login_callback(
     return await oauth_manager.handle_callback(request, provider, response, db=db)
 
 
-@app.get("/manifest.json")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/manifest.json")
 async def get_manifest_json():
     if app.state.EXTERNAL_PWA_MANIFEST_URL:
         return requests.get(app.state.EXTERNAL_PWA_MANIFEST_URL).json()
@@ -2358,7 +2358,7 @@ async def get_manifest_json():
         }
 
 
-@app.get("/opensearch.xml")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/opensearch.xml")
 async def get_opensearch_xml():
     xml_content = rf"""
     <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
@@ -2373,12 +2373,12 @@ async def get_opensearch_xml():
     return Response(content=xml_content, media_type="application/xml")
 
 
-@app.get("/health")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/health")
 async def healthcheck():
     return {"status": True}
 
 
-@app.get("/health/db")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/health/db")
 async def healthcheck_with_db():
     ScopedSession.execute(text("SELECT 1;")).all()
     return {"status": True}
@@ -2387,7 +2387,7 @@ async def healthcheck_with_db():
 app.mount(f"{os.environ.get('PUBLIC_BASE_PATH', '')}/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
-@app.get("/cache/{path:path}")
+@app.get(f"{os.environ.get('PUBLIC_BASE_PATH')}/cache/{{path:path}}")
 async def serve_cache_file(
     path: str,
     user=Depends(get_verified_user),
