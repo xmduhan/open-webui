@@ -730,12 +730,12 @@
 						<Tooltip content={$i18n.t('Notes')} placement="right">
 							<a
 								class=" cursor-pointer flex rounded-xl hover:bg-gray-100 dark:hover:bg-gray-850 transition group"
-								href="/notes"
+								href="{base}/notes"
 								on:click={async (e) => {
 									e.stopImmediatePropagation();
 									e.preventDefault();
 
-									goto('/notes');
+									goto(`${base}/notes`);
 									itemClickHandler();
 								}}
 								draggable="false"
@@ -967,7 +967,7 @@
 							<a
 								id="sidebar-notes-button"
 								class="grow flex items-center space-x-3 rounded-2xl px-2.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
-								href="/notes"
+								href="{base}/notes"
 								on:click={itemClickHandler}
 								draggable="false"
 								aria-label={$i18n.t('Notes')}
