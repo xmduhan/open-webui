@@ -83,9 +83,13 @@ if [ -n "$PUBLIC_BASE_PATH" ]; then
   ROOT_PATH=$PUBLIC_BASE_PATH
   [[ "$ROOT_PATH" != /* ]] && ROOT_PATH="/$ROOT_PATH"
   ARGS+=(--root-path "$ROOT_PATH")
-  echo 'ARGS:' "${ARGS[@]}"
-  echo 'ROOT_PATH:' $ROOT_PATH
 fi
+
+echo 'PYTHON_CMD:' $PYTHON_CMD
+echo 'WEBUI_SECRET_KEY:' $WEBUI_SECRET_KEY
+echo 'HOST:' $HOST
+echo 'PORT:' $PORT
+echo 'ARGS:' "${ARGS[@]}"
 
 # Run uvicorn
 WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" exec "$PYTHON_CMD" -m uvicorn open_webui.main:app \
