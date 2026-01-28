@@ -1401,8 +1401,7 @@ app.add_middleware(
 )
 
 
-{os.environ.get('PUBLIC_BASE_PATH', ')}/ws", socket_app)
-
+app.mount(f"/ws", socket_app)
 
 app.include_router(ollama.router, prefix="/ollama", tags=["ollama"])
 app.include_router(openai.router, prefix="/openai", tags=["openai"])
@@ -2384,8 +2383,7 @@ async def healthcheck_with_db():
     return {"status": True}
 
 
-{os.environ.get('PUBLIC_BASE_PATH', ')}/static", StaticFiles(directory=STATIC_DIR), name="static")
-
+app.mount(f"/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.get(f"/cache/{{path:path}}")
 async def serve_cache_file(
