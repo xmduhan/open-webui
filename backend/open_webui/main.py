@@ -1401,7 +1401,7 @@ app.add_middleware(
 )
 
 
-app.mount(f"/ws", socket_app)
+{os.environ.get('PUBLIC_BASE_PATH', ')}/ws", socket_app)
 
 
 app.include_router(ollama.router, prefix="/ollama", tags=["ollama"])
@@ -2384,7 +2384,7 @@ async def healthcheck_with_db():
     return {"status": True}
 
 
-app.mount(f"/static", StaticFiles(directory=STATIC_DIR), name="static")
+{os.environ.get('PUBLIC_BASE_PATH', ')}/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get(f"/cache/{{path:path}}")
