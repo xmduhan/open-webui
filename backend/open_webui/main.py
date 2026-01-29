@@ -1404,7 +1404,7 @@ app.add_middleware(
 )
 
 
-app.mount(f"{PUBLIC_BASH_PATH}/ws", socket_app)
+app.mount(f"{PUBLIC_BASE_PATH}/ws", socket_app)
 
 router.include_router(ollama.router, prefix="/ollama", tags=["ollama"])
 router.include_router(openai.router, prefix="/openai", tags=["openai"])
