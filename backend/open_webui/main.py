@@ -2415,6 +2415,8 @@ def swagger_ui_html(*args, **kwargs):
 
 applications.get_swagger_ui_html = swagger_ui_html
 
+app.include_router(router)
+
 if os.path.exists(FRONTEND_BUILD_DIR):
     mimetypes.add_type("text/javascript", ".js")
     app.mount(
@@ -2427,4 +2429,13 @@ else:
         f"Frontend build directory not found at '{FRONTEND_BUILD_DIR}'. Serving API only."
     )
 
-app.include_router(router)
+from fastapi.routing import APIRoute
+from starlette.routing import Mount
+for r in app.routes:
+    if isinstance(r, APIRoute):
+        methods = ",".join(r.methods or [])
+        print(f"[API] {methods:15s} {r.path}")
+    elif isinstance(r, Mount):
+        print(f"[MOUNT]           {r.path}")
+    else:
+        print(f"[OTHER]           {r.path}")
