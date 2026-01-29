@@ -2428,14 +2428,3 @@ else:
     log.warning(
         f"Frontend build directory not found at '{FRONTEND_BUILD_DIR}'. Serving API only."
     )
-
-from fastapi.routing import APIRoute
-from starlette.routing import Mount
-for r in app.routes:
-    if isinstance(r, APIRoute):
-        methods = ",".join(r.methods or [])
-        print(f"[API] {methods:15s} {r.path}")
-    elif isinstance(r, Mount):
-        print(f"[MOUNT]           {r.path}")
-    else:
-        print(f"[OTHER]           {r.path}")
