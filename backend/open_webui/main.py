@@ -651,7 +651,7 @@ async def lifespan(app: FastAPI):
         app.state.redis_task_command_listener.cancel()
 
 PUBLIC_BASE_PATH = os.getenv("PUBLIC_BASE_PATH", "").rstrip("/")
-router = APIRouter(prefix=BASE)
+router = APIRouter(prefix=PUBLIC_BASE_PATH)
 
 app = FastAPI(
     title="Open WebUI",
