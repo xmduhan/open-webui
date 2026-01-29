@@ -36,6 +36,7 @@ from fastapi import (
     status,
     applications,
     BackgroundTasks,
+    APIRouter
 )
 from fastapi.openapi.docs import get_swagger_ui_html
 
@@ -651,6 +652,7 @@ async def lifespan(app: FastAPI):
         app.state.redis_task_command_listener.cancel()
 
 PUBLIC_BASE_PATH = os.getenv("PUBLIC_BASE_PATH", "").rstrip("/")
+print(f'PUBLIC_BASE_PATH: {PUBLIC_BASE_PATH}')
 router = APIRouter(prefix=PUBLIC_BASE_PATH)
 
 app = FastAPI(
