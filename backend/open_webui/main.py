@@ -661,7 +661,6 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.include_router(router)
 
 # For Open WebUI OIDC/OAuth2
 oauth_manager = OAuthManager(app)
@@ -1469,8 +1468,8 @@ if audit_level != AuditLevel.NONE:
 ##################################
 
 
-@app.get(f"/api/models")
-@app.get(f"/api/v1/models")  # Experimental: Compatibility with OpenAI API
+@router.get(f"/api/models")
+@router.get(f"/api/v1/models")  # Experimental: Compatibility with OpenAI API
 async def get_models(
     request: Request, refresh: bool = False, user=Depends(get_verified_user)
 ):
@@ -1521,7 +1520,7 @@ async def get_models(
     return {"data": models}
 
 
-@app.get(f"/api/models/base")
+@router.get(f"/api/models/base")
 async def get_base_models(request: Request, user=Depends(get_admin_user)):
     models = await get_all_base_models(request, user=user)
     return {"data": models}
@@ -1532,8 +1531,8 @@ async def get_base_models(request: Request, user=Depends(get_admin_user)):
 ##################################
 
 
-@app.post("/api/embeddings")
-@app.post("/api/v1/embeddings")  # Experimental: Compatibility with OpenAI API
+@router.post("/api/embeddings")
+@router.post("/api/v1/embeddings")  # Experimental: Compatibility with OpenAI API
 async def embeddings(
     request: Request, form_data: dict, user=Depends(get_verified_user)
 ):
@@ -1559,8 +1558,8 @@ async def embeddings(
     return await generate_embeddings(request, form_data, user)
 
 
-@app.post("/api/chat/completions")
-@app.post("/api/v1/chat/completions")  # Experimental: Compatibility with OpenAI API
+@router.post("/api/chat/completions")
+@router.post("/api/v1/chat/completions")  # Experimental: Compatibility with OpenAI API
 async def chat_completion(
     request: Request,
     form_data: dict,
@@ -1803,7 +1802,7 @@ generate_chat_completions = chat_completion
 generate_chat_completion = chat_completion
 
 
-@app.post("/api/chat/completed")
+@router.post("/api/chat/completed")
 async def chat_completed(
     request: Request, form_data: dict, user=Depends(get_verified_user)
 ):
@@ -1822,7 +1821,7 @@ async def chat_completed(
         )
 
 
-@app.post("/api/chat/actions/{action_id}")
+@router.post("/api/chat/actions/{action_id}")
 async def chat_action(
     request: Request, action_id: str, form_data: dict, user=Depends(get_verified_user)
 ):
@@ -1841,7 +1840,7 @@ async def chat_action(
         )
 
 
-@app.post("/api/tasks/stop/{task_id}")
+@router.post("/api/tasks/stop/{task_id}")
 async def stop_task_endpoint(
     request: Request, task_id: str, user=Depends(get_verified_user)
 ):
@@ -1852,12 +1851,12 @@ async def stop_task_endpoint(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
 
-@app.get(f"/api/tasks")
+@router.get(f"/api/tasks")
 async def list_tasks_endpoint(request: Request, user=Depends(get_verified_user)):
     return {"tasks": await list_tasks(request.app.state.redis)}
 
 
-@app.get(f"/api/tasks/chat/{{chat_id}}")
+@router.get(f"/api/tasks/chat/{{chat_id}}")
 async def list_tasks_by_chat_id_endpoint(
     request: Request, chat_id: str, user=Depends(get_verified_user)
 ):
@@ -1878,7 +1877,7 @@ async def list_tasks_by_chat_id_endpoint(
 ##################################
 
 
-@app.get(f"/api/config")
+@router.get(f"/api/config")
 async def get_app_config(request: Request):
     user = None
     token = None
@@ -2054,21 +2053,21 @@ class UrlForm(BaseModel):
     url: str
 
 
-@app.get(f"/api/webhook")
+@router.get(f"/api/webhook")
 async def get_webhook_url(user=Depends(get_admin_user)):
     return {
         "url": app.state.config.WEBHOOK_URL,
     }
 
 
-@app.post("/api/webhook")
+@router.post("/api/webhook")
 async def update_webhook_url(form_data: UrlForm, user=Depends(get_admin_user)):
     app.state.config.WEBHOOK_URL = form_data.url
     app.state.WEBHOOK_URL = app.state.config.WEBHOOK_URL
     return {"url": app.state.config.WEBHOOK_URL}
 
 
-@app.get(f"/api/version")
+@router.get(f"/api/version")
 async def get_app_version():
     return {
         "version": VERSION,
@@ -2076,7 +2075,7 @@ async def get_app_version():
     }
 
 
-@app.get(f"/api/version/updates")
+@router.get(f"/api/version/updates")
 async def get_app_latest_release_version(user=Depends(get_verified_user)):
     if not ENABLE_VERSION_UPDATE_CHECK:
         log.debug(
@@ -2100,12 +2099,12 @@ async def get_app_latest_release_version(user=Depends(get_verified_user)):
         return {"current": VERSION, "latest": VERSION}
 
 
-@app.get(f"/api/changelog")
+@router.get(f"/api/changelog")
 async def get_app_changelog():
     return {key: CHANGELOG[key] for idx, key in enumerate(CHANGELOG) if idx < 5}
 
 
-@app.get(f"/api/usage")
+@router.get(f"/api/usage")
 async def get_current_usage(user=Depends(get_verified_user)):
     """
     Get current usage statistics for Open WebUI.
@@ -2245,7 +2244,7 @@ async def register_client(request, client_id: str) -> bool:
     return True
 
 
-@app.get(f"/oauth/clients/{{client_id}}/authorize")
+@router.get(f"/oauth/clients/{{client_id}}/authorize")
 async def oauth_client_authorize(
     client_id: str,
     request: Request,
@@ -2290,7 +2289,7 @@ async def oauth_client_authorize(
     return await oauth_client_manager.handle_authorize(request, client_id=client_id)
 
 
-@app.get(f"/oauth/clients/{{client_id}}/callback")
+@router.get(f"/oauth/clients/{{client_id}}/callback")
 async def oauth_client_callback(
     client_id: str,
     request: Request,
@@ -2305,7 +2304,7 @@ async def oauth_client_callback(
     )
 
 
-@app.get(f"/oauth/{{provider}}/login")
+@router.get(f"/oauth/{{provider}}/login")
 async def oauth_login(provider: str, request: Request):
     return await oauth_manager.handle_login(request, provider)
 
@@ -2316,8 +2315,8 @@ async def oauth_login(provider: str, request: Request):
 #    - This is considered insecure in general, as OAuth providers do not always verify email addresses
 # 3. If there is no user, and ENABLE_OAUTH_SIGNUP is true, create a user
 #    - Email addresses are considered unique, so we fail registration if the email address is already taken
-@app.get(f"/oauth/{{provider}}/login/callback")
-@app.get(f"/oauth/{{provider}}/callback")  # Legacy endpoint
+@router.get(f"/oauth/{{provider}}/login/callback")
+@router.get(f"/oauth/{{provider}}/callback")  # Legacy endpoint
 async def oauth_login_callback(
     provider: str,
     request: Request,
@@ -2327,7 +2326,7 @@ async def oauth_login_callback(
     return await oauth_manager.handle_callback(request, provider, response, db=db)
 
 
-@app.get(f"/manifest.json")
+@router.get(f"/manifest.json")
 async def get_manifest_json():
     if app.state.EXTERNAL_PWA_MANIFEST_URL:
         return requests.get(app.state.EXTERNAL_PWA_MANIFEST_URL).json()
@@ -2361,7 +2360,7 @@ async def get_manifest_json():
         }
 
 
-@app.get(f"/opensearch.xml")
+@router.get(f"/opensearch.xml")
 async def get_opensearch_xml():
     xml_content = rf"""
     <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
@@ -2376,12 +2375,12 @@ async def get_opensearch_xml():
     return Response(content=xml_content, media_type="application/xml")
 
 
-@app.get(f"/health")
+@router.get(f"/health")
 async def healthcheck():
     return {"status": True}
 
 
-@app.get(f"/health/db")
+@router.get(f"/health/db")
 async def healthcheck_with_db():
     ScopedSession.execute(text("SELECT 1;")).all()
     return {"status": True}
@@ -2389,7 +2388,7 @@ async def healthcheck_with_db():
 
 app.mount(f"{PUBLIC_BASE_PATH}/static", StaticFiles(directory=STATIC_DIR), name="static")
 
-@app.get(f"/cache/{{path:path}}")
+@router.get(f"/cache/{{path:path}}")
 async def serve_cache_file(
     path: str,
     user=Depends(get_verified_user),
@@ -2412,7 +2411,6 @@ def swagger_ui_html(*args, **kwargs):
         swagger_favicon_url="/static/swagger-ui/favicon.png",
     )
 
-
 applications.get_swagger_ui_html = swagger_ui_html
 
 if os.path.exists(FRONTEND_BUILD_DIR):
@@ -2426,3 +2424,5 @@ else:
     log.warning(
         f"Frontend build directory not found at '{FRONTEND_BUILD_DIR}'. Serving API only."
     )
+
+app.include_router(router)
