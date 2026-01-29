@@ -650,6 +650,8 @@ async def lifespan(app: FastAPI):
     if hasattr(app.state, "redis_task_command_listener"):
         app.state.redis_task_command_listener.cancel()
 
+PUBLIC_BASE_PATH = os.getenv("PUBLIC_BASE_PATH", "").rstrip("/")
+router = APIRouter(prefix=BASE)
 
 app = FastAPI(
     title="Open WebUI",
@@ -658,6 +660,8 @@ app = FastAPI(
     redoc_url=None,
     lifespan=lifespan,
 )
+
+app.include_router(router)
 
 # For Open WebUI OIDC/OAuth2
 oauth_manager = OAuthManager(app)
@@ -1401,7 +1405,7 @@ app.add_middleware(
 )
 
 
-app.mount(f"/ws", socket_app)
+app.mount(f"{PUBLIC_BASH_PATH}/ws", socket_app)
 
 app.include_router(ollama.router, prefix="/ollama", tags=["ollama"])
 app.include_router(openai.router, prefix="/openai", tags=["openai"])
@@ -2383,7 +2387,7 @@ async def healthcheck_with_db():
     return {"status": True}
 
 
-app.mount(f"/static", StaticFiles(directory=STATIC_DIR), name="static")
+app.mount(f"{PUBLIC_BASE_PATH}/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.get(f"/cache/{{path:path}}")
 async def serve_cache_file(
@@ -2414,7 +2418,7 @@ applications.get_swagger_ui_html = swagger_ui_html
 if os.path.exists(FRONTEND_BUILD_DIR):
     mimetypes.add_type("text/javascript", ".js")
     app.mount(
-        f"/",
+        f"{PUBLIC_BASE_PATH}/",
         SPAStaticFiles(directory=FRONTEND_BUILD_DIR, html=True),
         name="spa-static-files",
     )
