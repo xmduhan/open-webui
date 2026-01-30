@@ -117,6 +117,25 @@ VERSION = PACKAGE_DATA["version"]
 DEPLOYMENT_ID = os.environ.get("DEPLOYMENT_ID", "")
 INSTANCE_ID = os.environ.get("INSTANCE_ID", str(uuid4()))
 
+####################################
+# PUBLIC BASE PATH (Deployment)
+####################################
+
+def _normalize_public_base_path(value: str | None) -> str:
+    if not value:
+        return ""
+    value = value.strip()
+    if not value.startswith("/"):
+        value = "/" + value
+    return value.rstrip("/")
+
+PUBLIC_BASE_PATH = _normalize_public_base_path(
+    os.environ.get("PUBLIC_BASE_PATH")
+)
+
+log.info(f"PUBLIC_BASE_PATH: '{PUBLIC_BASE_PATH or '/'}'")
+
+
 ENABLE_DB_MIGRATIONS = os.environ.get("ENABLE_DB_MIGRATIONS", "True").lower() == "true"
 
 

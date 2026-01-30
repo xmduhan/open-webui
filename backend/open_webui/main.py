@@ -466,6 +466,7 @@ from open_webui.env import (
     VERSION,
     DEPLOYMENT_ID,
     INSTANCE_ID,
+    PUBLIC_BASE_PATH,
     WEBUI_BUILD_HASH,
     WEBUI_SECRET_KEY,
     WEBUI_SESSION_COOKIE_SAME_SITE,
@@ -651,8 +652,6 @@ async def lifespan(app: FastAPI):
     if hasattr(app.state, "redis_task_command_listener"):
         app.state.redis_task_command_listener.cancel()
 
-PUBLIC_BASE_PATH = os.getenv("PUBLIC_BASE_PATH", "").rstrip("/")
-print(f'PUBLIC_BASE_PATH: {PUBLIC_BASE_PATH}')
 router = APIRouter(prefix=PUBLIC_BASE_PATH)
 
 app = FastAPI(
