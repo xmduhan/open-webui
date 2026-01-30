@@ -2341,13 +2341,13 @@ async def get_manifest_json():
             "background_color": "#343541",
             "icons": [
                 {
-                    "src": "/static/logo.png",
+                    "src": f"{PUBLIC_BASE_PATH}/static/logo.png",
                     "type": "image/png",
                     "sizes": "500x500",
                     "purpose": "any",
                 },
                 {
-                    "src": "/static/logo.png",
+                    "src": f"{PUBLIC_BASE_PATH}/static/logo.png",
                     "type": "image/png",
                     "sizes": "500x500",
                     "purpose": "maskable",
@@ -2407,14 +2407,18 @@ def swagger_ui_html(*args, **kwargs):
     return get_swagger_ui_html(
         *args,
         **kwargs,
-        swagger_js_url="/static/swagger-ui/swagger-ui-bundle.js",
-        swagger_css_url="/static/swagger-ui/swagger-ui.css",
-        swagger_favicon_url="/static/swagger-ui/favicon.png",
+        swagger_js_url=f"{PUBLIC_BASE_PATH}/static/swagger-ui/swagger-ui-bundle.js",
+        swagger_css_url=f"{PUBLIC_BASE_PATH}/static/swagger-ui/swagger-ui.css",
+        swagger_favicon_url=f"{PUBLIC_BASE_PATH}/static/swagger-ui/favicon.png",
     )
 
 applications.get_swagger_ui_html = swagger_ui_html
 
 app.include_router(router)
+
+print('=================================')
+print(STATIC_DIR)
+print('=================================')
 
 if os.path.exists(FRONTEND_BUILD_DIR):
     mimetypes.add_type("text/javascript", ".js")
