@@ -75,7 +75,7 @@
 		{
 			id: 'general',
 			title: 'General',
-			route: '/admin/settings/general',
+			route: `${base}/admin/settings/general`,
 			keywords: [
 				'general',
 				'admin',
@@ -98,7 +98,7 @@
 		{
 			id: 'connections',
 			title: 'Connections',
-			route: '/admin/settings/connections',
+			route: `${base}/admin/settings/connections`,
 			keywords: [
 				'connections',
 				'ollama',
@@ -113,7 +113,7 @@
 		{
 			id: 'models',
 			title: 'Models',
-			route: '/admin/settings/models',
+			route: `${base}/admin/settings/models`,
 			keywords: [
 				'models',
 				'pull',
@@ -129,19 +129,19 @@
 		{
 			id: 'evaluations',
 			title: 'Evaluations',
-			route: '/admin/settings/evaluations',
+			route: `${base}/admin/settings/evaluations`,
 			keywords: ['evaluations', 'feedback', 'rating', 'arena', 'leaderboard', 'preference']
 		},
 		{
 			id: 'tools',
 			title: 'External Tools',
-			route: '/admin/settings/tools',
+			route: `${base}/admin/settings/tools`,
 			keywords: ['tools', 'plugins', 'extensions', 'functions', 'openapi', 'server']
 		},
 		{
 			id: 'documents',
 			title: 'Documents',
-			route: '/admin/settings/documents',
+			route: `${base}/admin/settings/documents`,
 			keywords: [
 				'documents',
 				'files',
@@ -163,7 +163,7 @@
 		{
 			id: 'web',
 			title: 'Web Search',
-			route: '/admin/settings/web',
+			route: `${base}/admin/settings/web`,
 			keywords: [
 				'web search',
 				'google',
@@ -184,13 +184,13 @@
 		{
 			id: 'code-execution',
 			title: 'Code Execution',
-			route: '/admin/settings/code-execution',
+			route: `${base}/admin/settings/code-execution`,
 			keywords: ['code execution', 'python', 'sandbox', 'compiler', 'jupyter', 'interpreter']
 		},
 		{
 			id: 'interface',
 			title: 'Interface',
-			route: '/admin/settings/interface',
+			route: `${base}/admin/settings/interface`,
 			keywords: [
 				'interface',
 				'ui',
@@ -205,7 +205,7 @@
 		{
 			id: 'audio',
 			title: 'Audio',
-			route: '/admin/settings/audio',
+			route: `${base}/admin/settings/audio`,
 			keywords: [
 				'audio',
 				'voice',
@@ -222,7 +222,7 @@
 		{
 			id: 'images',
 			title: 'Images',
-			route: '/admin/settings/images',
+			route: `${base}/admin/settings/images`,
 			keywords: [
 				'images',
 				'generation',
@@ -236,13 +236,13 @@
 		{
 			id: 'pipelines',
 			title: 'Pipelines',
-			route: '/admin/settings/pipelines',
+			route: `${base}/admin/settings/pipelines`,
 			keywords: ['pipelines', 'workflows', 'filters', 'valves', 'middleware']
 		},
 		{
 			id: 'db',
 			title: 'Database',
-			route: '/admin/settings/db',
+			route: `${base}/admin/settings/db`,
 			keywords: ['database', 'export', 'import', 'backup', 'chats', 'users']
 		}
 	];
