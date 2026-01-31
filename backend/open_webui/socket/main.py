@@ -219,30 +219,6 @@ app = socketio.ASGIApp(
     socketio_path=f"{PUBLIC_BASE_PATH}/ws/socket.io",
 )
 
-###############################################################
-from typing import Callable, Awaitable
-from socketio.asgi import ASGIApp
-class DebugSocketIOASGIApp:
-    def __init__(self, sio_app: ASGIApp):
-        self.sio_app = sio_app
-
-    async def __call__(self, scope, receive, send):
-        print("========== DebugSocketIOASGIApp ==========")
-        print("ASGI type:", scope.get("type"))
-        print("path:", scope.get("path"))
-        print("root_path:", scope.get("root_path"))
-        print("query_string:", scope.get("query_string", b"").decode())
-        print("headers:")
-        for k, v in scope.get("headers", []):
-            print(f"  {k.decode()}: {v.decode()}")
-        print("==========================================")
-
-        return await self.sio_app(scope, receive, send)
-
-app = DebugSocketIOASGIApp(app)
-###############################################################
-
-
 
 def get_models_in_use():
     # List models that are currently in use
