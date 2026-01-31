@@ -2416,10 +2416,6 @@ applications.get_swagger_ui_html = swagger_ui_html
 
 app.include_router(router)
 
-print('=================================')
-print(STATIC_DIR)
-print('=================================')
-
 if os.path.exists(FRONTEND_BUILD_DIR):
     mimetypes.add_type("text/javascript", ".js")
     app.mount(
