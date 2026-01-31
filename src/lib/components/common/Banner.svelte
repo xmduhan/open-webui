@@ -109,7 +109,7 @@
 				<div class="hidden md:flex group w-fit md:items-center">
 					<a
 						class="text-gray-700 dark:text-white text-xs font-semibold underline"
-						href="/"
+						href="{base}/"
 						target="_blank"
 					>
 						{$i18n.t('Learn More')}

@@ -862,7 +862,7 @@
 		rel="search"
 		type="application/opensearchdescription+xml"
 		title={$WEBUI_NAME}
-		href="/opensearch.xml"
+		href="{base}/opensearch.xml"
 		crossorigin="use-credentials"
 	/>
 </svelte:head>
