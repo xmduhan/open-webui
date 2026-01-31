@@ -2,6 +2,7 @@
 	import { getContext, tick, onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { toast } from 'svelte-sonner';
 
 	import { config } from '$lib/stores';
