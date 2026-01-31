@@ -124,7 +124,7 @@
 														<a
 															href={'/admin/users/groups?id=' + userGroup.id}
 															on:click|preventDefault={() =>
-																goto('/admin/users/groups?id=' + userGroup.id)}
+																goto(`${base}/admin/users/groups?id=` + userGroup.id)}
 														>
 															{userGroup.name}
 														</a>
