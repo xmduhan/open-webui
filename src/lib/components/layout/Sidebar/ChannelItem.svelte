@@ -8,6 +8,7 @@
 	import { getUserActiveStatusById } from '$lib/apis/users';
 	import { updateChannelById, updateChannelMemberActiveStatusById } from '$lib/apis/channels';
 	import { WEBUI_API_BASE_URL } from '$lib/constants';
+	import { base } from '$app/paths';
 
 	import Cog6 from '$lib/components/icons/Cog6.svelte';
 	import ChannelModal from './ChannelModal.svelte';
