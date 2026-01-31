@@ -4,6 +4,7 @@
 	const i18n = getContext('i18n');
 
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { user } from '$lib/stores';
 
 	import CodeEditor from '$lib/components/common/CodeEditor.svelte';
@@ -214,7 +215,7 @@ class Tools:
 								<button
 									class="w-full text-left text-sm py-1.5 px-1 rounded-lg dark:text-gray-300 dark:hover:text-white hover:bg-black/5 dark:hover:bg-gray-850"
 									on:click={() => {
-										goto('/workspace/tools');
+										goto(`${base}/workspace/tools`);
 									}}
 									type="button"
 								>

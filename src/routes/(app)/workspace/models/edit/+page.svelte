@@ -1,6 +1,7 @@
 <script>
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	import { onMount, getContext } from 'svelte';
 	const i18n = getContext('i18n');
@@ -23,15 +24,15 @@
 			});
 
 			if (!model) {
-				goto('/workspace/models');
+				goto(`${base}/workspace/models`);
 			}
 
 			if (!model?.write_access) {
 				toast.error($i18n.t('You do not have permission to edit this model'));
-				goto('/workspace/models');
+				goto(`${base}/workspace/models`);
 			}
 		} else {
-			goto('/workspace/models');
+			goto(`${base}/workspace/models`);
 		}
 	});
 
@@ -46,7 +47,7 @@
 				)
 			);
 			toast.success($i18n.t('Model updated successfully'));
-			await goto('/workspace/models');
+			await goto(`${base}/workspace/models`);
 		}
 	};
 </script>

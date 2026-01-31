@@ -210,7 +210,7 @@
 			id: `${model.id}-clone`,
 			name: `${model.name} (Clone)`
 		});
-		goto('/workspace/models/create');
+		goto(`${base}/workspace/models/create`);
 	};
 
 	const exportModelHandler = async (model) => {

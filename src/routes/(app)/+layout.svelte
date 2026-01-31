@@ -6,6 +6,7 @@
 	const { saveAs } = fileSaver;
 
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 	import { fade } from 'svelte/transition';
 
@@ -143,7 +144,7 @@
 
 	onMount(async () => {
 		if ($user === undefined || $user === null) {
-			await goto('/auth');
+			await goto(`${base}/auth`);
 			return;
 		}
 		if (!['user', 'admin'].includes($user?.role)) {
@@ -238,7 +239,7 @@
 					} else {
 						temporaryChatEnabled.set(!$temporaryChatEnabled);
 					}
-					await goto('/');
+					await goto(`${base}/`);
 					setTimeout(() => {
 						document.getElementById('new-chat-button')?.click();
 					}, 0);

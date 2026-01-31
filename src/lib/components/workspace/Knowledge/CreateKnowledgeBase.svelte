@@ -51,7 +51,7 @@
 	<button
 		class="flex space-x-1"
 		on:click={() => {
-			goto('/workspace/knowledge');
+			goto(`${base}/workspace/knowledge`);
 		}}
 	>
 		<div class=" self-center">

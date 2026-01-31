@@ -174,7 +174,7 @@
 				$socket?.on('note-events', noteEventHandler);
 			}
 		} else {
-			goto('/');
+			goto(`${base}/`);
 			return;
 		}
 

@@ -1,6 +1,7 @@
 <script>
 	import { getContext, tick, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { page } from '$app/stores';
 
 	import Leaderboard from './Evaluations/Leaderboard.svelte';
@@ -61,7 +62,7 @@
 					? ''
 					: ' text-gray-300 dark:text-gray-600 hover:text-gray-700 dark:hover:text-white'}"
 				on:click={() => {
-					goto('/admin/evaluations/leaderboard');
+					goto(`${base}/admin/evaluations/leaderboard`);
 				}}
 			>
 				<div class=" self-center mr-2">
@@ -88,7 +89,7 @@
 					? ''
 					: ' text-gray-300 dark:text-gray-600 hover:text-gray-700 dark:hover:text-white'}"
 				on:click={() => {
-					goto('/admin/evaluations/feedback');
+					goto(`${base}/admin/evaluations/feedback`);
 				}}
 			>
 				<div class=" self-center mr-2">

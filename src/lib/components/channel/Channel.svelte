@@ -4,6 +4,7 @@
 
 	import { onDestroy, onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { v4 as uuidv4 } from 'uuid';
 
 	import {
@@ -108,7 +109,7 @@
 				}
 			}
 		} else {
-			goto('/');
+			goto(`${base}/`);
 		}
 	};
 

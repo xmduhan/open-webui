@@ -632,7 +632,7 @@
 	id="sidebar-new-chat-button"
 	class="hidden"
 	on:click={() => {
-		goto('/');
+		goto(`${base}/`);
 		newChatHandler();
 	}}
 />
@@ -693,7 +693,7 @@
 								e.stopImmediatePropagation();
 								e.preventDefault();
 
-								goto('/');
+								goto(`${base}/`);
 								newChatHandler();
 							}}
 							aria-label={$i18n.t('New Chat')}
@@ -759,7 +759,7 @@
 									e.stopImmediatePropagation();
 									e.preventDefault();
 
-									goto('/workspace');
+									goto(`${base}/workspace`);
 									itemClickHandler();
 								}}
 								aria-label={$i18n.t('Workspace')}

@@ -5,6 +5,7 @@
 	import { toast } from 'svelte-sonner';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	import { createNewChannel, deleteChannelById } from '$lib/apis/channels';
 	import { user } from '$lib/stores';
@@ -112,7 +113,7 @@
 			onUpdate();
 
 			if ($page.url.pathname === `/channels/${channel.id}`) {
-				goto('/');
+				goto(`${base}/`);
 			}
 		}
 

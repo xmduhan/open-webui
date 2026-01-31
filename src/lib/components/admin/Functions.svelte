@@ -134,7 +134,7 @@
 				id: `${_function.id}_clone`,
 				name: `${_function.name} (${$i18n.t('Clone')})`
 			});
-			goto('/admin/functions/create');
+			goto(`${base}/admin/functions/create`);
 		}
 	};
 
@@ -255,7 +255,7 @@
 		sessionStorage.function = JSON.stringify({
 			...func
 		});
-		goto('/admin/functions/create');
+		goto(`${base}/admin/functions/create`);
 	}}
 />
 
@@ -325,7 +325,7 @@
 						{/if}
 						<AddFunctionMenu
 							createHandler={() => {
-								goto('/admin/functions/create');
+								goto(`${base}/admin/functions/create`);
 							}}
 							importFromLinkHandler={() => {
 								showImportModal = true;

@@ -119,7 +119,7 @@
 				id: `${_tool.id}_clone`,
 				name: `${_tool.name} (Clone)`
 			});
-			goto('/workspace/tools/create');
+			goto(`${base}/workspace/tools/create`);
 		}
 	};
 
@@ -199,7 +199,7 @@
 		sessionStorage.tool = JSON.stringify({
 			...tool
 		});
-		goto('/workspace/tools/create');
+		goto(`${base}/workspace/tools/create`);
 	}}
 	loadUrlHandler={async (url) => {
 		return await loadToolByUrl(localStorage.token, url);
@@ -273,7 +273,7 @@
 				{#if $user?.role === 'admin'}
 					<AddToolMenu
 						createHandler={() => {
-							goto('/workspace/tools/create');
+							goto(`${base}/workspace/tools/create`);
 						}}
 						importFromLinkHandler={() => {
 							showImportModal = true;

@@ -9,6 +9,7 @@
 	const { saveAs } = fileSaver;
 
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { toast } from 'svelte-sonner';
 
 	import { chatId, mobile, selectedFolder, showSidebar } from '$lib/stores';
@@ -504,7 +505,7 @@
 							await selectedFolder.set(folder);
 						}
 
-						await goto('/');
+						await goto(`${base}/`);
 
 						if ($mobile) {
 							showSidebar.set(!$showSidebar);

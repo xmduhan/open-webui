@@ -16,7 +16,7 @@
 			)
 		) {
 			// If the feature is not enabled, redirect to the home page
-			goto('/');
+			goto(`${base}/`);
 		}
 
 		loaded = true;

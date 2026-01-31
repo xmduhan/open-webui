@@ -5,6 +5,7 @@
 	import { onMount, getContext } from 'svelte';
 
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	import { updateUserById, getUserGroupsById } from '$lib/apis/users';
 
